@@ -14,6 +14,7 @@ const userSchema = new Schema<Tuser>(
       default: "user",
     },
     address: { type: String, required: true },
+    isDeleted:{type:Boolean, default:false}
   },
   { timestamps: true },
 );

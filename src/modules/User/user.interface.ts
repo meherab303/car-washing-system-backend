@@ -5,4 +5,5 @@ export type Tuser = {
   password: string;
   role: "admin" | "user";
   address: string;
+  isDeleted?:boolean
 };

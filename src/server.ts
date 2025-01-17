@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import app from "./app";
 import config from "./app/config";
 

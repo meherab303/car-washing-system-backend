@@ -16,6 +16,52 @@ const createUser = catchAsync(async (req, res) => {
     });
   });
 
+const getAllUsers=catchAsync(async(req,res)=>{
+
+    const result=await UserServices.getAllUsersFromDB()
+    return res.status(httpStatus.OK).json({
+        success:true,
+        message:"all Users are retrieved successfull",
+        data:result
+    })
+
+})  
+const getSingleUser=catchAsync(async(req,res)=>{
+    const {id}=req.params
+    const result=await UserServices.getSingleUserFromDB(id)
+    return res.status(httpStatus.OK).json({
+        success:true,
+        message:" User is retrieved successfull",
+        data:result
+    })
+
+})  
+const updateSingleUser=catchAsync(async(req,res)=>{
+    const {id}=req.params
+    const modifiedData=req.body as Partial<Tuser>
+    const result=await UserServices.updateSingleUserIntoDB(id,modifiedData )
+    return res.status(httpStatus.OK).json({
+        success:true,
+        message:" User is updated successfull",
+        data:result
+    })
+
+})  
+const deleteSingleUser=catchAsync(async(req,res)=>{
+    const {id}=req.params
+    const result=await UserServices.deleteSingleUserIntoDB(id)
+    return res.status(httpStatus.OK).json({
+        success:true,
+        message:" User is deleted successfull",
+        data:result
+    })
+
+})  
+
 export const UserController={
     createUser,
+    getAllUsers,
+    getSingleUser,
+    updateSingleUser,
+    deleteSingleUser
 }
