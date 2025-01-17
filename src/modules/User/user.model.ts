@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { model, Schema } from "mongoose";
 import { Tuser } from "./user.interface";
+import bcrypt from "bcrypt"
+import config from "../../app/config";
 
 const userSchema = new Schema<Tuser>(
   {
@@ -18,4 +22,16 @@ const userSchema = new Schema<Tuser>(
   },
   { timestamps: true },
 );
+
+userSchema.pre("save", async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  this.password = await bcrypt.hash(this.password,Number(config.SALT_ROUND))
+  next();
+});
+
+userSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
+});
+
 export const UserModel = model<Tuser>("User", userSchema);
