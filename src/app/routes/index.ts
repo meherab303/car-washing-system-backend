@@ -16,7 +16,7 @@ const moduleRoutes = [
         route:ServiceRoutes,
     },
     {
-        path:"/services/bookingSlot",
+        path:"/bookingSlot",
         route:BookingSlotRoutes,
     }
 

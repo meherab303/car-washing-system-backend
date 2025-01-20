@@ -47,8 +47,8 @@ const createBookingSlotIntoDB=async(payload:TBookingSlot)=>{
 
 }
 
-const getAllBookingSlotFromDB=async()=>{
-    const result=await BookingSlotModel.find()
+const getAllBookingSlotFromDB=async(id:string)=>{
+    const result=await BookingSlotModel.find({service:id}).populate("service")
     return result
 }
 

@@ -14,7 +14,8 @@ const createBookingSlot = catchAsync(async (req, res) => {
 });
 
 const getAllBookingSlots = catchAsync(async (req, res) => {
-  const result = await BookingSlotService.getAllBookingSlotFromDB();
+  const {serviceId}=req?.query || undefined
+  const result = await BookingSlotService.getAllBookingSlotFromDB(serviceId as string);
   return res.status(httpStatus.OK).json({
     success: true,
     message: "All booking slots retrieved successfully",

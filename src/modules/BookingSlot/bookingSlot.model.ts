@@ -11,6 +11,9 @@ const bookingSlotSchema= new Schema({
       enum: ['available', 'booked', 'canceled'],
       default: 'available',
     },
+    
+  },{
+    timestamps: true, 
   });
   
   export  const BookingSlotModel =model<TBookingSlot>('BookingSlot', bookingSlotSchema);
