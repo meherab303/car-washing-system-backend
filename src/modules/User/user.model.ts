@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { model, Schema } from "mongoose";
-import { Tuser } from "./user.interface";
+import { TUser } from "./user.interface";
 import bcrypt from "bcrypt"
 import config from "../../app/config";
 
-const userSchema = new Schema<Tuser>(
+const userSchema = new Schema<TUser>(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
@@ -34,4 +34,4 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
-export const UserModel = model<Tuser>("User", userSchema);
+export const UserModel = model<TUser>("User", userSchema);

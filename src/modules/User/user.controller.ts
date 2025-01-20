@@ -2,12 +2,12 @@
 import catchAsync from "../utils/catchAsync";
 import httpStatus from "http-status";
 import { UserServices } from "./user.service";
-import { Tuser } from "./user.interface";
+import { TUser } from "./user.interface";
 
 const createUser = catchAsync(async (req, res) => {
     
   
-    const result = await UserServices.createUserIntoDB(req.body as Tuser) ;
+    const result = await UserServices.createUserIntoDB(req.body as TUser) ;
   
     return res.status(httpStatus.OK).json({
       success: true,
@@ -38,7 +38,7 @@ const getSingleUser=catchAsync(async(req,res)=>{
 })  
 const updateSingleUser=catchAsync(async(req,res)=>{
     const {id}=req.params
-    const modifiedData=req.body as Partial<Tuser>
+    const modifiedData=req.body as Partial<TUser>
     const result=await UserServices.updateSingleUserIntoDB(id,modifiedData )
     return res.status(httpStatus.OK).json({
         success:true,
@@ -49,7 +49,7 @@ const updateSingleUser=catchAsync(async(req,res)=>{
 })  
 const deleteSingleUser=catchAsync(async(req,res)=>{
     const {id}=req.params
-    const result=await UserServices.deleteSingleUserIntoDB(id)
+    const result=await UserServices.deleteSingleUserFromDB(id)
     return res.status(httpStatus.OK).json({
         success:true,
         message:" User is deleted successfull",

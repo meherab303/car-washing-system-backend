@@ -1,7 +1,7 @@
-import { Tuser } from "./user.interface";
+import { TUser } from "./user.interface";
 import { UserModel } from "./user.model";
 
-const createUserIntoDB=async(payload:Tuser)=>{
+const createUserIntoDB=async(payload:TUser)=>{
 const newUser=await UserModel.create(payload)
 return newUser
 }
@@ -13,7 +13,7 @@ const getSingleUserFromDB=async(id:string)=>{
     const result=await UserModel.findById(id)
     return result
 }
-const updateSingleUserIntoDB=async(id:string,payload:Partial<Tuser>)=>{
+const updateSingleUserIntoDB=async(id:string,payload:Partial<TUser>)=>{
    
     const result=await UserModel.findByIdAndUpdate(
         id,
@@ -27,7 +27,7 @@ const updateSingleUserIntoDB=async(id:string,payload:Partial<Tuser>)=>{
       }
     return result
 }
-const deleteSingleUserIntoDB=async(id:string)=>{
+const deleteSingleUserFromDB=async(id:string)=>{
     const result=await UserModel.findByIdAndUpdate(
         id,
         { isDeleted: true },
@@ -43,5 +43,5 @@ export const UserServices={
    getAllUsersFromDB,
    getSingleUserFromDB,
    updateSingleUserIntoDB,
-   deleteSingleUserIntoDB
+   deleteSingleUserFromDB
 }
