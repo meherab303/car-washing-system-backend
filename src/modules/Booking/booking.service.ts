@@ -8,14 +8,21 @@ import { BookingModel } from "./booking.model";
 import { UserModel } from "../User/user.model";
 
 const createBookingIntoDB=async(payload:TBooking)=>{
-    const {slot,customer}=payload
+    const {slot,customer,service}=payload
+    
     const isCustomerExist=await UserModel.findById(customer)
     if(!isCustomerExist){
         throw new Error("user doesn't exist")
     }
     const isSlotExist=await BookingSlotModel.findById(slot)
+    
     if(!isSlotExist){
         throw new Error("slot doesn't exist")
+    }
+    const isServiceBelongToSlot=await BookingSlotModel.findOne({_id:slot,service})
+
+    if(!isServiceBelongToSlot){
+        throw new Error("this service is not belong to this slot ")
     }
 
     if(isSlotExist?.isBooked!=='available'){
