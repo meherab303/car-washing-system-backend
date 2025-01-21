@@ -13,7 +13,45 @@ const createBooking = catchAsync(async (req, res) => {
       data: result,
     });
   });
+  const getAllBookings = catchAsync(async (req, res) => {
+    
+    const result = await BookingService.getAllBookingsFromDB()
+    return res.status(httpStatus.OK).json({
+      success: true,
+      message: "All booking are retrieved successfully",
+      data: result,
+    });
+  });
 
+  
+const updateBooking = catchAsync(async (req, res) => {
+    const {id}=req.params
+    const result = await BookingService.updateBookingIntoDB(
+      id,
+      req.body as Partial<TBooking>,
+    );
+  
+    return res.status(httpStatus.OK).json({
+      success: true,
+      message: "Booking  updated successfully",
+      data: result,
+    });
+  });
+const cancelBooking = catchAsync(async (req, res) => {
+    const {id}=req.params
+    const result = await BookingService.cancelledBookingFromDB(
+      id,
+    );
+  
+    return res.status(httpStatus.OK).json({
+      success: true,
+      message: "Booking  is cancelled",
+      data: result,
+    });
+  });
 export const BookingController={
-    createBooking
+    createBooking,
+    getAllBookings,
+    updateBooking,
+    cancelBooking
 }  

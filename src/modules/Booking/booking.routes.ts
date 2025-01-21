@@ -11,16 +11,16 @@ routes.post(
   validateData(BookingValidationSchema.BookingSchema),
   BookingController.createBooking 
 );
-// routes.get("/", BookingSlotController.getAllBookingSlots);
+routes.get("/", BookingController.getAllBookings);
 
 // routes.get("/:id", BookingSlotController.getSingleBookingSlot);
 
-// routes.patch(
-//   "/:id",
-//   validateData(bookingSlotSchemaValidation.updateBookingSlotSchema),
-//   BookingSlotController.updateBookingSlot,
-// );
+routes.patch(
+  "/:id",
+  validateData(BookingValidationSchema.UpdateBookingSchema),
+  BookingController.updateBooking,
+);
 
-// routes.delete("/:id", BookingSlotController.deleteBookingSlot);
+routes.delete("/:id/cancelBooking", BookingController.cancelBooking);
 
 export const BookingRoutes = routes;
