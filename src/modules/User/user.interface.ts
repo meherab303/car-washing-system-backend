@@ -5,5 +5,5 @@ export type TUser = {
   password: string;
   role: "admin" | "user";
   address: string;
-  isDeleted?:boolean
+  isDeleted?: boolean;
 };
