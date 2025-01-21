@@ -59,6 +59,7 @@ const getSingleBookingSlotFromDB = async (id: string) => {
   }
   return result;
 };
+
 const updateBookingSlotIntoDB = async (
   id: string,
   payload: Partial<TBookingSlot>,
@@ -73,6 +74,7 @@ const updateBookingSlotIntoDB = async (
   });
   return result;
 };
+
 const deleteBookingSlotFromDB = async (id: string) => {
   const isBookingSlotExist = await BookingSlotModel.findById(id);
   if (!isBookingSlotExist) {
