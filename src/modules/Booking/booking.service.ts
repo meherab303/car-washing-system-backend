@@ -60,7 +60,7 @@ const getMyBookingsFromDB = async (
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "user not found !");
   }
-  const result = await BookingModel.find()
+  const result = await BookingModel.find({email:userEmail}).populate("customer service slot")
   return result
 };
 const updateBookingIntoDB=async(id:string,payload:Partial<TBooking>)=>{

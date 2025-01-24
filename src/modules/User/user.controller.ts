@@ -2,6 +2,7 @@ import catchAsync from "../utils/catchAsync";
 import httpStatus from "http-status";
 import { UserServices } from "./user.service";
 import { TUser } from "./user.interface";
+import { emptyDataCheck } from "../utils/emptyDataCheck";
 
 const createUser = catchAsync(async (req, res) => {
   const result = await UserServices.createUserIntoDB(req.body as TUser);
@@ -16,6 +17,10 @@ const createUser = catchAsync(async (req, res) => {
 const getAllUsers = catchAsync(async (req, res) => {
 
   const result = await UserServices.getAllUsersFromDB();
+  const emptyData=emptyDataCheck(result)
+  if(emptyData){
+    return res.status(httpStatus.NOT_FOUND).json(emptyData)
+}
   return res.status(httpStatus.OK).json({
     success: true,
     message: "all Users are retrieved successfull",
@@ -25,6 +30,7 @@ const getAllUsers = catchAsync(async (req, res) => {
 const getSingleUser = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await UserServices.getSingleUserFromDB(id);
+
   return res.status(httpStatus.OK).json({
     success: true,
     message: " User is retrieved successfull",

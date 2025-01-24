@@ -1,4 +1,5 @@
 import catchAsync from "../utils/catchAsync";
+import { emptyDataCheck } from "../utils/emptyDataCheck";
 import { TBooking } from "./booking.interface";
 import { BookingService } from "./booking.service";
 import httpStatus from "http-status";
@@ -16,6 +17,10 @@ const createBooking = catchAsync(async (req, res) => {
   const getAllBookings = catchAsync(async (req, res) => {
     
     const result = await BookingService.getAllBookingsFromDB()
+    const emptyData=emptyDataCheck(result)
+      if(emptyData){
+        return res.status(httpStatus.NOT_FOUND).json(emptyData)
+    }
     return res.status(httpStatus.OK).json({
       success: true,
       message: "All booking are retrieved successfully",
@@ -27,8 +32,11 @@ const createBooking = catchAsync(async (req, res) => {
     const userEmail = req?.user?.userEmail as string;
   
     const result=await BookingService.getMyBookingsFromDB(userEmail)
-  
-    res.status(httpStatus.OK).json({
+const emptyData=emptyDataCheck(result)
+if(emptyData){
+  return res.status(httpStatus.NOT_FOUND).json(emptyData)
+}
+    return res.status(httpStatus.OK).json({
       success: true,
       message: "your bookings are retrieved successfully",
       data:result,

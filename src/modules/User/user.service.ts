@@ -1,5 +1,7 @@
+import AppError from "../../errors/appError";
 import { TUser } from "./user.interface";
 import { UserModel } from "./user.model";
+import httpStatus  from "http-status";
 
 const createUserIntoDB = async (payload: TUser) => {
   const newUser = await UserModel.create(payload);
@@ -11,6 +13,9 @@ const getAllUsersFromDB = async () => {
 };
 const getSingleUserFromDB = async (id: string) => {
   const result = await UserModel.findById(id);
+  if(!result){
+    throw new AppError(httpStatus.NOT_FOUND,"user is not found")
+  }
   return result;
 };
 const updateSingleUserIntoDB = async (id: string, payload: Partial<TUser>) => {
