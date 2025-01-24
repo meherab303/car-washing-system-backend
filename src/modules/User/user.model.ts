@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { model, Schema } from "mongoose";
-import { TUser } from "./user.interface";
+import { TUser, User } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../app/config";
 
-const userSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser,User>(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
@@ -34,4 +34,15 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
-export const UserModel = model<TUser>("User", userSchema);
+userSchema.statics.isUserExistByEmail = async function (email: string) {
+  return await UserModel.findOne({ email }).select("+password");
+};
+
+userSchema.statics.isPasswordMatched = async function (
+  plaintextPassword: string,
+  hashedPassword: string
+) {
+  return await bcrypt.compare(plaintextPassword, hashedPassword);
+};
+
+export const UserModel = model<TUser,User>("User", userSchema);
