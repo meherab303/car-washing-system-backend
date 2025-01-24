@@ -6,6 +6,8 @@ import { TBooking } from "./booking.interface";
 import { BookingSlotModel } from "../BookingSlot/bookingSlot.model";
 import { BookingModel } from "./booking.model";
 import { UserModel } from "../User/user.model";
+import AppError from "../../errors/appError";
+import httpStatus from "http-status";
 
 const createBookingIntoDB=async(payload:TBooking)=>{
     const {slot,customer,service}=payload
@@ -51,6 +53,16 @@ const getAllBookingsFromDB=async()=>{
     const result=await BookingModel.find().populate("customer service slot")
     return result
 } 
+const getMyBookingsFromDB = async (
+  userEmail: string,
+) => {
+  const user = await UserModel.findOne({ email: userEmail });
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "user not found !");
+  }
+  const result = await BookingModel.find()
+  return result
+};
 const updateBookingIntoDB=async(id:string,payload:Partial<TBooking>)=>{
     const booking = await BookingModel.findById(id);
     if (!booking) {
@@ -88,6 +100,7 @@ const cancelledBookingFromDB=async(id:string)=>{
 export const BookingService={
     createBookingIntoDB,
     getAllBookingsFromDB,
+    getMyBookingsFromDB,
     updateBookingIntoDB,
     cancelledBookingFromDB
 }

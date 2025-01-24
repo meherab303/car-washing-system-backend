@@ -2,6 +2,7 @@ import express from "express";
 import validateData from "../../middlewares/validateData";
 import { BookingValidationSchema } from "./booking.validations";
 import { BookingController } from "./booking.controller";
+import auth from "../../middlewares/auth";
 
 
 const routes = express.Router();
@@ -13,7 +14,7 @@ routes.post(
 );
 routes.get("/", BookingController.getAllBookings);
 
-// routes.get("/:id", BookingSlotController.getSingleBookingSlot);
+routes.get("/my-bookings",auth(), BookingController.getMyBookings);
 
 routes.patch(
   "/:id",
