@@ -2,6 +2,7 @@ import express from "express";
 import validateData from "../../middlewares/validateData";
 import { userSchemaValidations } from "./user.validations";
 import { UserController } from "./user.controller";
+import auth from "../../middlewares/auth";
 
 const routes = express.Router();
 
@@ -10,7 +11,7 @@ routes.post(
   validateData(userSchemaValidations.createUserValidationSchema),
   UserController.createUser,
 );
-routes.get("/", UserController.getAllUsers);
+routes.get("/", auth(),UserController.getAllUsers);
 
 routes.get("/:id", UserController.getSingleUser);
 routes.patch(
