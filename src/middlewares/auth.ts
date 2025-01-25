@@ -18,7 +18,7 @@ const auth = (...UserRoles: TUserRole[]) => {
       throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
     }
     const decoded = jwt.verify(token, config?.JWT_ACCESS_SECRET as string);
-    const { userEmail, role,} = decoded as JwtPayload;
+    const { userEmail, role,iat} = decoded as JwtPayload;
     const user = await UserModel.isUserExistByEmail(userEmail as string);
 
     if (!user) {
@@ -31,6 +31,13 @@ const auth = (...UserRoles: TUserRole[]) => {
     }
    
     if (UserRoles.length > 0 && !UserRoles.includes(role as TUserRole)) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
+    }
+    const passWordChangeTime = user?.passwordChangeAt;
+    if (
+      passWordChangeTime &&
+      User.isJWTissuedBeforePasswordChanged(passWordChangeTime, iat as number)
+    ) {
       throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
     }
    

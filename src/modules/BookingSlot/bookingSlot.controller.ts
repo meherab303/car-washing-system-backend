@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 
 import { TBookingSlot } from "./bookingSlot.interface";
 import { BookingSlotService } from "./bookingSlot.service";
+import { emptyDataCheck } from "../utils/emptyDataCheck";
 
 const createBookingSlot = catchAsync(async (req, res) => {
   const result = await BookingSlotService.createBookingSlotIntoDB(
@@ -20,6 +21,11 @@ const getAllBookingSlots = catchAsync(async (req, res) => {
   const result = await BookingSlotService.getAllBookingSlotFromDB(
     serviceId as string,
   );
+  
+  const emptyData=emptyDataCheck(result)
+  if(emptyData){
+    return res.status(httpStatus.NOT_FOUND).json(emptyData)
+}
   return res.status(httpStatus.OK).json({
     success: true,
     message: "All booking slots retrieved successfully",

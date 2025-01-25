@@ -1,9 +1,11 @@
 import config from "../../app/config";
 import AppError from "../../errors/appError";
 import { UserModel } from "../User/user.model";
-import { TLoginUser } from "./auth.interface";
+import { TLoginUser, TPasswordChang } from "./auth.interface";
 import httpStatus from "http-status";
 import { createToken } from "./auth.utils";
+import { JwtPayload } from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const loginUser = async (payload: TLoginUser) => {
     const { email, password } = payload;
@@ -38,6 +40,47 @@ const loginUser = async (payload: TLoginUser) => {
       accessToken, 
     };
   };
+
+  const changePassword = async (user: JwtPayload, payload: TPasswordChang) => {
+    const { userEmail, role } = user;
+   
+  const { oldPassword, newPassword } = payload;
+  const userData = await UserModel.isUserExistByEmail(userEmail as string);
+  if (!userData) {
+    throw new AppError(httpStatus.NOT_FOUND, "user is not found");
+  }
+  const isUserDeleted = userData?.isDeleted;
+  if (isUserDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, "user is deleted");
+  }
+
+
+  if (!(await UserModel.isPasswordMatched(oldPassword, userData?.password))) {
+    throw new AppError(httpStatus.FORBIDDEN, "wrong password");
+  }
+
+  const hashedNewPassword = await bcrypt.hash(
+    newPassword,
+    Number(config.SALT_ROUND)
+  );
+
+  await UserModel.findOneAndUpdate(
+    {
+      email: userEmail as string,
+      role: role as string,
+    },
+    {
+      password: hashedNewPassword,
+      passwordChangeAt: new Date(),
+    },
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+  return null;
+  };
   export const AuthServices={
-    loginUser
+    loginUser,
+    changePassword
   }  

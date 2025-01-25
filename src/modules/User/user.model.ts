@@ -9,7 +9,7 @@ const userSchema = new Schema<TUser,User>(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true ,select:0},
     phone: { type: String, required: true, trim: true },
     role: {
       type: String,
@@ -19,6 +19,7 @@ const userSchema = new Schema<TUser,User>(
     },
     address: { type: String, required: true },
     isDeleted: { type: Boolean, default: false },
+    passwordChangeAt:{type:Date}
   },
   { timestamps: true },
 );

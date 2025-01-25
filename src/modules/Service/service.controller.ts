@@ -2,6 +2,7 @@ import catchAsync from "../utils/catchAsync";
 import httpStatus from "http-status";
 import { ServiceOfCar } from "./service.service";
 import { TService } from "./service.interface";
+import { emptyDataCheck } from "../utils/emptyDataCheck";
 
 const createService = catchAsync(async (req, res) => {
   const result = await ServiceOfCar.createServiceIntoDB(req.body as TService);
@@ -13,6 +14,10 @@ const createService = catchAsync(async (req, res) => {
 });
 const getAllService = catchAsync(async (req, res) => {
   const result = await ServiceOfCar.getAllServiceFromDB();
+  const emptyData=emptyDataCheck(result)
+  if(emptyData){
+    return res.status(httpStatus.NOT_FOUND).json(emptyData)
+}
   return res.status(httpStatus.OK).json({
     success: true,
     message: "Car services are retrieved successfully",

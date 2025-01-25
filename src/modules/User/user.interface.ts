@@ -9,6 +9,7 @@ export interface TUser  {
   role: "admin" | "user";
   address: string;
   isDeleted?: boolean;
+  passwordChangeAt?:Date
 };
 
 export interface User extends Model<TUser> {
@@ -17,6 +18,10 @@ export interface User extends Model<TUser> {
     plaintextPassword: string,
     hashedPassword: string
   ): Promise<boolean>;
+  isJWTissuedBeforePasswordChanged(
+    passwordChangedTimeSpan: Date,
+    jwtIssuedTimeSpan: number
+  ): boolean;
  
 }
 export type TUserRole=keyof typeof User_Role
