@@ -7,15 +7,15 @@ export const sendEmail = async (receivers: string, resetLink: string) => {
     port: 587,
     secure: config.Node_ENV=== "production", // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: "meherinhasan191@gmail.com",
-      pass: "itpf abji pzzw rvit",
+      user: config.node_mailer_email,
+      pass: config.node_mailer_pass,
     },
   });
   await transporter.sendMail({
-    from: "meherinhasan191@gmail.com", // sender address
-    to: receivers, // list of receivers
-    subject: "Reset Your Password within Ten minutes", // Subject line
-    text: "Hello world?", // plain text body
-    html: `${resetLink}`, // html body
+    from:config.node_mailer_email, 
+    to: receivers, 
+    subject: "Reset Your Password within Ten minutes", 
+    text: "", 
+    html: `${resetLink}`, 
   });
 };

@@ -6,3 +6,4 @@ export type TLoginUser = {
     oldPassword: string;
     newPassword: string;
   };
+  export type TResetPass = { email: string; newPassword: string };

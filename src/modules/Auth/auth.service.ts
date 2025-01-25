@@ -1,7 +1,7 @@
 import config from "../../app/config";
 import AppError from "../../errors/appError";
 import { UserModel } from "../User/user.model";
-import { TLoginUser, TPasswordChang } from "./auth.interface";
+import { TLoginUser, TPasswordChang, TResetPass } from "./auth.interface";
 import httpStatus from "http-status";
 import { createToken, verifyToken} from "./auth.utils";
 import { JwtPayload } from "jsonwebtoken";
@@ -152,10 +152,50 @@ const loginUser = async (payload: TLoginUser) => {
   
     await sendEmail(user.email, resetUiLink);
   };
+  const resetPassword = async (payload: TResetPass, token: string) => {
+
+    const user = await UserModel.isUserExistByEmail(payload?.email);
+
+    if (!user) {
+      throw new AppError(httpStatus.NOT_FOUND, "user is not found");
+    }
+
+    const isUserDeleted = user?.isDeleted;
+    if (isUserDeleted) {
+      throw new AppError(httpStatus.FORBIDDEN, "user is deleted");
+    }
+    const decoded = verifyToken(
+      token,
+      config.JWT_ACCESS_SECRET as string
+    ) as JwtPayload;
+  
+    if (user.email !== decoded.userEmail) {
+      throw new AppError(httpStatus.FORBIDDEN, "you are forbidden");
+    }
+    const newHashedPassword = await bcrypt.hash(
+      payload.newPassword,
+      Number(config.SALT_ROUND)
+    );
+    await UserModel.findOneAndUpdate(
+      { email: decoded.userEmail as string, role: decoded.role as string },
+      {
+        password: newHashedPassword,
+        passwordChangeAt: new Date(),
+      },
+      {
+        runValidators: true,
+        new: true,
+      }
+    );
+    return null;
+  };
 
   export const AuthServices={
     loginUser,
     changePassword,
     refreshToken,
-    forgetPassword
+    forgetPassword,
+    resetPassword
   }  
+
+  // http://localhost:3000?email=nahinrahman87@gmail.com&token
