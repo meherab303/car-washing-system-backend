@@ -36,7 +36,7 @@ const auth = (...UserRoles: TUserRole[]) => {
     const passWordChangeTime = user?.passwordChangeAt;
     if (
       passWordChangeTime &&
-      User.isJWTissuedBeforePasswordChanged(passWordChangeTime, iat as number)
+      UserModel.isJWTissuedBeforePasswordChanged(passWordChangeTime, iat as number)
     ) {
       throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
     }

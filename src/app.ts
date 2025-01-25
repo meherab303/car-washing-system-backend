@@ -18,8 +18,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
-app.use(notFound)
+
 app.use(globalError);
+app.use(notFound)
 
 
 export default app;
