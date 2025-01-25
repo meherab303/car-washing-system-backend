@@ -19,8 +19,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-app.use(globalError);
+
+
 app.use(notFound)
-
-
+app.use(globalError);
 export default app;
