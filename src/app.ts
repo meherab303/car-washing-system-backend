@@ -4,13 +4,14 @@ import cors from "cors";
 import router from "./app/routes";
 import notFound from "./middlewares/notFound";
 import globalError from "./middlewares/globalError";
+import cookieParser from "cookie-parser";
 
 
 
 app.use(express.json());
 app.use(express.text());
 app.use(cors());
-
+app.use(cookieParser())
 app.use("/api/v1", router);
 
 app.get("/", (req: Request, res: Response) => {

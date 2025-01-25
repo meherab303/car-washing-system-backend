@@ -3,7 +3,7 @@ import AppError from "../../errors/appError";
 import { UserModel } from "../User/user.model";
 import { TLoginUser, TPasswordChang } from "./auth.interface";
 import httpStatus from "http-status";
-import { createToken } from "./auth.utils";
+import { createToken, verifyToken} from "./auth.utils";
 import { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -35,9 +35,16 @@ const loginUser = async (payload: TLoginUser) => {
         config?.JWT_ACCESS_EXPIRES_IN as string
 
       );
+    const refreshToken = createToken(
+        jwtPayload,
+        config?.jwt_refresh_secret as string,
+        config?.jwt_refresh_expires_in as string
+
+      );
   
     return {
       accessToken, 
+      refreshToken
     };
   };
 
@@ -80,7 +87,45 @@ const loginUser = async (payload: TLoginUser) => {
   );
   return null;
   };
+  const refreshToken=async(refreshToken:string)=>{
+    const decoded = verifyToken(
+      refreshToken,
+      config.jwt_refresh_secret as string
+    );
+    const { userEmail, iat } = decoded as JwtPayload;
+    const user = await UserModel.isUserExistByEmail(userEmail as string);
+  
+   
+    if (!user) {
+      throw new AppError(httpStatus.NOT_FOUND, "user is not found");
+    }
+   
+    const isUserDeleted = user?.isDeleted;
+    if (isUserDeleted) {
+      throw new AppError(httpStatus.FORBIDDEN, "user is deleted");
+    }
+ 
+
+    const passWordChangeTime = user?.passwordChangeAt;
+    if (
+      passWordChangeTime &&
+      UserModel.isJWTissuedBeforePasswordChanged(passWordChangeTime, iat as number)
+    ) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
+    }
+    const jwtPayload = {
+      userEmail: user?.email,
+      role: user?.role,
+    };
+    const accessToken = createToken(
+      jwtPayload,
+      config?.JWT_ACCESS_SECRET as string,
+      config?.JWT_ACCESS_EXPIRES_IN as string
+    );
+    return accessToken;
+  }
   export const AuthServices={
     loginUser,
-    changePassword
+    changePassword,
+    refreshToken
   }  
