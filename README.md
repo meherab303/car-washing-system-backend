@@ -1,4 +1,4 @@
-# Car Wash Booking System
+# Car Wash Booking System Backend
 
 ## Project Overview
 The Car Wash Booking System is a backend application designed to manage bookings for car wash services. It includes features for error handling, CRUD operations, authentication, and authorization, as well as transactional operations for data consistency. The system supports multiple user roles, such as admin and user, and provides functionality to create and manage bookings, services, and slots.
