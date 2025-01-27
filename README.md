@@ -38,13 +38,13 @@ The Car Wash Booking System is a backend application designed to manage bookings
    ```
 4. Set up the environment variables:
    - Create a `.env` file in the root directory.
-   - Start server: npm run start:dev
-   -
+
+   
      
      ```
 5. Start the application:
    ```bash
-   npm run dev
+  npm run start:dev
    ```
 
 ## API Endpoints
