@@ -27,7 +27,7 @@ The Car Wash Booking System is a backend application designed to manage bookings
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/car-wash-booking-system.git
+   git clone https://github.com/meherab303/car-washing-system.git
    ```
 2. Navigate to the project directory:
    ```bash
