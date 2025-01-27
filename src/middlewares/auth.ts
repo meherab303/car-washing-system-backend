@@ -1,4 +1,3 @@
-
 import { NextFunction, Request, Response } from "express";
 
 import catchAsync from "../modules/utils/catchAsync";
@@ -9,7 +8,6 @@ import config from "../app/config";
 import { TUserRole } from "../modules/User/user.interface";
 import { UserModel } from "../modules/User/user.model";
 
-
 const auth = (...UserRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req?.headers?.authorization;
@@ -18,7 +16,7 @@ const auth = (...UserRoles: TUserRole[]) => {
       throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
     }
     const decoded = jwt.verify(token, config?.JWT_ACCESS_SECRET as string);
-    const { userEmail, role,iat} = decoded as JwtPayload;
+    const { userEmail, role, iat } = decoded as JwtPayload;
     const user = await UserModel.isUserExistByEmail(userEmail as string);
 
     if (!user) {
@@ -29,18 +27,21 @@ const auth = (...UserRoles: TUserRole[]) => {
     if (isUserDeleted) {
       throw new AppError(httpStatus.FORBIDDEN, "user is deleted");
     }
-   
+
     if (UserRoles.length > 0 && !UserRoles.includes(role as TUserRole)) {
       throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
     }
     const passWordChangeTime = user?.passwordChangeAt;
     if (
       passWordChangeTime &&
-      UserModel.isJWTissuedBeforePasswordChanged(passWordChangeTime, iat as number)
+      UserModel.isJWTissuedBeforePasswordChanged(
+        passWordChangeTime,
+        iat as number,
+      )
     ) {
       throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized");
     }
-   
+
     req.user = decoded as JwtPayload;
     next();
   });

@@ -5,11 +5,11 @@ import { TUser, User } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../app/config";
 
-const userSchema = new Schema<TUser,User>(
+const userSchema = new Schema<TUser, User>(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true ,select:0},
+    password: { type: String, required: true, select: 0 },
     phone: { type: String, required: true, trim: true },
     role: {
       type: String,
@@ -19,7 +19,7 @@ const userSchema = new Schema<TUser,User>(
     },
     address: { type: String, required: true },
     isDeleted: { type: Boolean, default: false },
-    passwordChangeAt:{type:Date}
+    passwordChangeAt: { type: Date },
   },
   { timestamps: true },
 );
@@ -41,13 +41,13 @@ userSchema.statics.isUserExistByEmail = async function (email: string) {
 
 userSchema.statics.isPasswordMatched = async function (
   plaintextPassword: string,
-  hashedPassword: string
+  hashedPassword: string,
 ) {
   return await bcrypt.compare(plaintextPassword, hashedPassword);
 };
 userSchema.statics.isJWTissuedBeforePasswordChanged = function (
   passwordChangedTimeSpan: Date,
-  jwtIssuedTimeSpan: number
+  jwtIssuedTimeSpan: number,
 ) {
   const jwtIssuedTimeSpanInMiLiSecond = new Date(jwtIssuedTimeSpan * 1000);
   // const passwordChangedTimeSpanInSecond =
@@ -55,4 +55,4 @@ userSchema.statics.isJWTissuedBeforePasswordChanged = function (
   return passwordChangedTimeSpan > jwtIssuedTimeSpanInMiLiSecond;
 };
 
-export const UserModel = model<TUser,User>("User", userSchema);
+export const UserModel = model<TUser, User>("User", userSchema);

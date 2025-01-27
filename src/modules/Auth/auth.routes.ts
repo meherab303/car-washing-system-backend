@@ -8,34 +8,31 @@ import express from "express";
 
 const routes = express.Router();
 
-
-
-
 routes.post(
-    "/login",
-    validateData(authValidationsSchema.loginValidationSchema),
-    AuthControllers.loginUser
-  );
+  "/login",
+  validateData(authValidationsSchema.loginValidationSchema),
+  AuthControllers.loginUser,
+);
 
 routes.post(
-    "/change-password",
-    auth(User_Role.admin,User_Role.user),
-    validateData(authValidationsSchema.changePasswordValidationSchema),
-    AuthControllers.changePassword
-  );
+  "/change-password",
+  auth(User_Role.admin, User_Role.user),
+  validateData(authValidationsSchema.changePasswordValidationSchema),
+  AuthControllers.changePassword,
+);
 routes.post(
-    "/refresh-token",
-    validateData(authValidationsSchema.refreshTokenValidationSchema),
-    AuthControllers.createRefreshToken
-  );
+  "/refresh-token",
+  validateData(authValidationsSchema.refreshTokenValidationSchema),
+  AuthControllers.createRefreshToken,
+);
 routes.post(
-    "/forget-password",
-    validateData(authValidationsSchema.forgetPasswordValidationSchema),
-    AuthControllers.forgetPassword
-  );
+  "/forget-password",
+  validateData(authValidationsSchema.forgetPasswordValidationSchema),
+  AuthControllers.forgetPassword,
+);
 routes.post(
-    "/reset-password",
-    validateData(authValidationsSchema.resetPasswordValidationSchema),
-    AuthControllers.resetPassword
-  );
-  export const AuthRoutes=routes
+  "/reset-password",
+  validateData(authValidationsSchema.resetPasswordValidationSchema),
+  AuthControllers.resetPassword,
+);
+export const AuthRoutes = routes;

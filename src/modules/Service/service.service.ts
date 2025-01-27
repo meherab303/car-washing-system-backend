@@ -42,22 +42,24 @@ const deleteServiceIntoDB = async (id: string) => {
   if (!service) {
     throw new Error("this service doesn't exists");
   }
-   const session = await mongoose.startSession();
-   try{
-         session.startTransaction();
-         await BookingSlotModel.deleteMany({service:id,isBooked:"available"},{session})
-         const result = await ServiceModel.findByIdAndUpdate(id, { isDeleted: true });
-         await session.commitTransaction()
-         await session.endSession()
-         return result
-       }catch(error:any){
-         await session.abortTransaction()
-         await session.endSession()
-         throw new Error(error);
-     
-       }
-  
-  
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    await BookingSlotModel.deleteMany(
+      { service: id, isBooked: "available" },
+      { session },
+    );
+    const result = await ServiceModel.findByIdAndUpdate(id, {
+      isDeleted: true,
+    });
+    await session.commitTransaction();
+    await session.endSession();
+    return result;
+  } catch (error: any) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw new Error(error);
+  }
 };
 export const ServiceOfCar = {
   createServiceIntoDB,

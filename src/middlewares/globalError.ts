@@ -15,7 +15,7 @@ import handleMongooseCastError from "../errors/handleMongooseCastError";
 import AppError from "../errors/appError";
 import config from "../app/config";
 
-const globalError : ErrorRequestHandler = (err, req, res, next) => {
+const globalError: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = 500;
   let message = "something went wrong";
 
@@ -68,14 +68,13 @@ const globalError : ErrorRequestHandler = (err, req, res, next) => {
     ];
   }
 
-    res.status(statusCode).json({
+  res.status(statusCode).json({
     success: "false",
     message,
     errorSource,
     // err,
     stack: config?.Node_ENV === "development" ? err?.stack : null,
   });
-  return
-  
+  return;
 };
 export default globalError;

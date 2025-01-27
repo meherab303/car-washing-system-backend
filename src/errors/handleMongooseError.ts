@@ -1,9 +1,8 @@
 import mongoose, { CastError } from "mongoose";
 import { TGenericReturnError } from "../errorInterface/TgenericReturnError";
 
-
 const handleMongooseError = (
-  err: mongoose.Error.ValidationError
+  err: mongoose.Error.ValidationError,
 ): TGenericReturnError => {
   const statusCode = 400;
 
@@ -15,7 +14,7 @@ const handleMongooseError = (
         path,
         message,
       };
-    }
+    },
   );
 
   return {

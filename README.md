@@ -52,40 +52,52 @@ The Car Wash Booking System is a backend application designed to manage bookings
    npm run start:dev   
 
 ## API Endpoints
+
 ### Authentication
-- **POST** `/api/v1/auth/login`: Login a user and return a JWT.
-- - **POST** `/api/v1/auth/change-password`:user can change password.
-- - **POST** `/api/v1/auth/forget-password`:if user forget their password.
-- - **POST** `/api/v1/auth/reset-password`:user can reset their password.
-- - **POST** `/api/v1/auth/refresh-token`:user can create refresh token.
+| Method | Endpoint                              | Description                                |
+|--------|---------------------------------------|--------------------------------------------|
+| POST   | /api/v1/auth/login                   | Login a user and return a JWT.             |
+| POST   | /api/v1/auth/change-password         | User can change their password.            |
+| POST   | /api/v1/auth/forget-password         | If a user forgets their password.          |
+| POST   | /api/v1/auth/reset-password          | User can reset their password.             |
+| POST   | /api/v1/auth/refresh-token           | User can create a refresh token.           |
 
 ### Users
-- **POST** `/api/v1/users/sign-up`: create users.
-- **GET** `/api/v1/users`: Retrieve all users.
-- **GET** `/api/v1/users/:id`: Retrieve a user by ID.
-- **PATCH** `/api/v1/users/:id`: Update user details.
-- **DELETE** `/api/v1/users/:id`: Delete a user.
+| Method | Endpoint                              | Description                                |
+|--------|---------------------------------------|--------------------------------------------|
+| POST   | /api/v1/users/sign-up                | Create users.                              |
+| GET    | /api/v1/users                        | Retrieve all users.                        |
+| GET    | /api/v1/users/:id                    | Retrieve a user by ID.                     |
+| PATCH  | /api/v1/users/:id                    | Update user details.                       |
+| DELETE | /api/v1/users/:id                    | Delete a user.                             |
 
 ### Services
-- **POST** `/api/v1/services/create-service`: Create a new service.
-- **GET** `/api/v1/services`: Retrieve all services.
-- **GET** `/api/v1/services/:id`: Retrieve a service by ID.
-- **PUT** `/api/v1/services/:id`: Update a service.
-- **DELETE** `/api/v1/services/:id`: Mark a service as deleted.
+| Method | Endpoint                              | Description                                |
+|--------|---------------------------------------|--------------------------------------------|
+| POST   | /api/v1/services/create-service      | Create a new service.                      |
+| GET    | /api/v1/services                     | Retrieve all services.                     |
+| GET    | /api/v1/services/:id                 | Retrieve a service by ID.                  |
+| PUT    | /api/v1/services/:id                 | Update a service.                          |
+| DELETE | /api/v1/services/:id                 | Mark a service as deleted.                 |
 
 ### Slots
-- **POST** `/api/v1/bookingSlots/create-slot`: Generate slots for a service.
-- **GET** `/api/v1/bookingSlots`: Retrieve all slots.
-- **GET** `/api/v1/bookingSlots/:id`: Retrieve a slots by id.
-- **PATCH** `/api/v1/bookingSlots/:id`: update a  slots.
-- **DELETE** `/api/v1/bookingSlots/:id`: delete a slot.
+| Method | Endpoint                              | Description                                |
+|--------|---------------------------------------|--------------------------------------------|
+| POST   | /api/v1/bookingSlots/create-slot     | Generate slots for a service.              |
+| GET    | /api/v1/bookingSlots                | Retrieve all slots.                        |
+| GET    | /api/v1/bookingSlots/:id            | Retrieve a slot by ID.                     |
+| PATCH  | /api/v1/bookingSlots/:id            | Update a slot.                             |
+| DELETE | /api/v1/bookingSlots/:id            | Delete a slot.                             |
 
 ### Bookings
-- **POST** `/api/v1/bookings/create-booking`: Create a new booking.
-- **GET** `/api/v1/bookings`: Retrieve all bookings.
-- **GET** `/api/v1/bookings/my-bookings`: Retrieve a booking using token.
-- **PATCH** `/api/v1/bookings/:id`: Update a booking.
-- **DELETE** `/api/v1/bookings/:id/cancelBooking`: Cancel a booking.
+| Method | Endpoint                              | Description                                |
+|--------|---------------------------------------|--------------------------------------------|
+| POST   | /api/v1/bookings/create-booking      | Create a new booking.                      |
+| GET    | /api/v1/bookings                     | Retrieve all bookings.                     |
+| GET    | /api/v1/bookings/my-bookings         | Retrieve a booking using token.            |
+| PATCH  | /api/v1/bookings/:id                 | Update a booking.                          |
+| DELETE | /api/v1/bookings/:id/cancelBooking   | Cancel a booking.                          |
+.
 
 ## Middleware
 ### Global Error Handler

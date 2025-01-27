@@ -8,7 +8,8 @@ import { User_Role } from "../User/user.constant";
 const routes = express.Router();
 
 routes.post(
-  "/create-slot",auth(User_Role.admin),
+  "/create-slot",
+  auth(User_Role.admin),
   validateData(bookingSlotSchemaValidation.createBookingSlotSchema),
   BookingSlotController.createBookingSlot,
 );
@@ -23,6 +24,10 @@ routes.patch(
   BookingSlotController.updateBookingSlot,
 );
 
-routes.delete("/:id",auth(User_Role.admin), BookingSlotController.deleteBookingSlot);
+routes.delete(
+  "/:id",
+  auth(User_Role.admin),
+  BookingSlotController.deleteBookingSlot,
+);
 
 export const BookingSlotRoutes = routes;

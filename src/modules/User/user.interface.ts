@@ -1,7 +1,7 @@
 import { Model } from "mongoose";
 import { User_Role } from "./user.constant";
 
-export interface TUser  {
+export interface TUser {
   name: string;
   email: string;
   phone: string;
@@ -9,19 +9,18 @@ export interface TUser  {
   role: "admin" | "user";
   address: string;
   isDeleted?: boolean;
-  passwordChangeAt?:Date
-};
+  passwordChangeAt?: Date;
+}
 
 export interface User extends Model<TUser> {
   isUserExistByEmail(email: string): Promise<TUser>;
   isPasswordMatched(
     plaintextPassword: string,
-    hashedPassword: string
+    hashedPassword: string,
   ): Promise<boolean>;
   isJWTissuedBeforePasswordChanged(
     passwordChangedTimeSpan: Date,
-    jwtIssuedTimeSpan: number
+    jwtIssuedTimeSpan: number,
   ): boolean;
- 
 }
-export type TUserRole=keyof typeof User_Role
+export type TUserRole = keyof typeof User_Role;

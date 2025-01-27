@@ -21,11 +21,11 @@ const getAllBookingSlots = catchAsync(async (req, res) => {
   const result = await BookingSlotService.getAllBookingSlotFromDB(
     serviceId as string,
   );
-  
-  const emptyData=emptyDataCheck(result)
-  if(emptyData){
-    return res.status(httpStatus.NOT_FOUND).json(emptyData)
-}
+
+  const emptyData = emptyDataCheck(result);
+  if (emptyData) {
+    return res.status(httpStatus.NOT_FOUND).json(emptyData);
+  }
   return res.status(httpStatus.OK).json({
     success: true,
     message: "All booking slots retrieved successfully",

@@ -15,13 +15,12 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getAllUsers = catchAsync(async (req, res) => {
-
   const result = await UserServices.getAllUsersFromDB();
-  
-  const emptyData=emptyDataCheck(result)
-  if(emptyData){
-    return res.status(httpStatus.NOT_FOUND).json(emptyData)
-}
+
+  const emptyData = emptyDataCheck(result);
+  if (emptyData) {
+    return res.status(httpStatus.NOT_FOUND).json(emptyData);
+  }
   return res.status(httpStatus.OK).json({
     success: true,
     message: "all Users are retrieved successfull",

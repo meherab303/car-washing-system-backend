@@ -7,7 +7,8 @@ import { User_Role } from "../User/user.constant";
 const routes = express.Router();
 
 routes.post(
-  "/create-service",auth(User_Role.admin),
+  "/create-service",
+  auth(User_Role.admin),
   validateData(serviceValidationSchema.createServiceValidationSchema),
   ServiceController.createService,
 );
@@ -19,5 +20,5 @@ routes.put(
   auth(User_Role.admin),
   ServiceController.updateService,
 );
-routes.delete("/:id",auth(User_Role.admin), ServiceController.deleteService);
+routes.delete("/:id", auth(User_Role.admin), ServiceController.deleteService);
 export const ServiceRoutes = routes;

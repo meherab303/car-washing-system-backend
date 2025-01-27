@@ -12,15 +12,15 @@ routes.post(
   validateData(userSchemaValidations.createUserValidationSchema),
   UserController.createUser,
 );
-routes.get("/", auth(User_Role.admin),UserController.getAllUsers);
+routes.get("/", auth(User_Role.admin), UserController.getAllUsers);
 
-routes.get("/:id",auth(User_Role.admin), UserController.getSingleUser);
+routes.get("/:id", auth(User_Role.admin), UserController.getSingleUser);
 routes.patch(
   "/:id",
   validateData(userSchemaValidations.updateUserValidationSchema),
   auth(User_Role.admin),
   UserController.updateSingleUser,
 );
-routes.delete("/:id",auth(User_Role.admin), UserController.deleteSingleUser);
+routes.delete("/:id", auth(User_Role.admin), UserController.deleteSingleUser);
 
 export const UserRoutes = routes;
