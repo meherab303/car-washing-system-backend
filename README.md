@@ -15,15 +15,21 @@ The Car Wash Booking System is a backend application designed to manage bookings
 - **No Data Found Middleware**: Handles scenarios where valid queries return no data.
 - **Not Found Middleware**: Handles unmatched routes.
 
-## Technology Stack
-- **Programming Language**: TypeScript
-- **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Middleware**: Zod for validation, cookie-parser, and CORS
+- **Programming Language:** TypeScript
+- **Framework:** Express.js
+- **Database:** MongoDB
+- **ODM:** Mongoose
+- **Authentication:** JWT (Access and Refresh Tokens)
+- **Validation:** Zod
+- **Error Handling:** Custom Middleware for Global Error Handling
+- **Environment Management:** dotenv
+- **Development Tools:** Postman for API testing
+- **CORS:** Configured to allow secure client-server communication
+
 
 ## Prerequisites
 - Node.js (v14 or higher)
-- npm or yarn
+- npm 
 - MongoDB instance
 
 ## Installation
@@ -47,32 +53,39 @@ The Car Wash Booking System is a backend application designed to manage bookings
 
 ## API Endpoints
 ### Authentication
-- **POST** `/api/v1/auth/register`: Register a new user.
 - **POST** `/api/v1/auth/login`: Login a user and return a JWT.
+- - **POST** `/api/v1/auth/change-password`:user can change password.
+- - **POST** `/api/v1/auth/forget-password`:if user forget their password.
+- - **POST** `/api/v1/auth/reset-password`:user can reset their password.
+- - **POST** `/api/v1/auth/refresh-token`:user can create refresh token.
 
 ### Users
+- **POST** `/api/v1/users/sign-up`: create users.
 - **GET** `/api/v1/users`: Retrieve all users.
 - **GET** `/api/v1/users/:id`: Retrieve a user by ID.
 - **PATCH** `/api/v1/users/:id`: Update user details.
 - **DELETE** `/api/v1/users/:id`: Delete a user.
 
 ### Services
-- **POST** `/api/v1/services`: Create a new service.
+- **POST** `/api/v1/services/create-service`: Create a new service.
 - **GET** `/api/v1/services`: Retrieve all services.
 - **GET** `/api/v1/services/:id`: Retrieve a service by ID.
-- **PATCH** `/api/v1/services/:id`: Update a service.
+- **PUT** `/api/v1/services/:id`: Update a service.
 - **DELETE** `/api/v1/services/:id`: Mark a service as deleted.
 
 ### Slots
-- **POST** `/api/v1/slots`: Generate slots for a service.
-- **GET** `/api/v1/slots`: Retrieve all slots.
+- **POST** `/api/v1/bookingSlots/create-slot`: Generate slots for a service.
+- **GET** `/api/v1/bookingSlots`: Retrieve all slots.
+- **GET** `/api/v1/bookingSlots/:id`: Retrieve a slots by id.
+- **PATCH** `/api/v1/bookingSlots/:id`: update a  slots.
+- **DELETE** `/api/v1/bookingSlots/:id`: delete a slot.
 
 ### Bookings
-- **POST** `/api/v1/bookings`: Create a new booking.
+- **POST** `/api/v1/bookings/create-booking`: Create a new booking.
 - **GET** `/api/v1/bookings`: Retrieve all bookings.
-- **GET** `/api/v1/bookings/:id`: Retrieve a booking by ID.
+- **GET** `/api/v1/bookings/my-bookings`: Retrieve a booking using token.
 - **PATCH** `/api/v1/bookings/:id`: Update a booking.
-- **DELETE** `/api/v1/bookings/:id`: Cancel a booking.
+- **DELETE** `/api/v1/bookings/:id/cancelBooking`: Cancel a booking.
 
 ## Middleware
 ### Global Error Handler
