@@ -80,7 +80,7 @@ The Car Wash Booking System is a backend application designed to manage bookings
 | PUT    | /api/v1/services/:id                 | Update a service.                          |
 | DELETE | /api/v1/services/:id                 | Mark a service as deleted.                 |
 
-### Slots
+### BookingSlots
 | Method | Endpoint                              | Description                                |
 |--------|---------------------------------------|--------------------------------------------|
 | POST   | /api/v1/bookingSlots/create-slot     | Generate slots for a service.              |
