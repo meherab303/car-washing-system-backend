@@ -38,11 +38,9 @@ The Car Wash Booking System is a backend application designed to manage bookings
    ```
 4. Set up the environment variables:
    - Create a `.env` file in the root directory.
-   - Add the following variables:
-     ```env
-     PORT=5000
-     MONGO_URI=mongodb://localhost:27017/car-wash
-     JWT_SECRET=your_jwt_secret
+   - Start server: npm run start:dev
+   -
+     
      ```
 5. Start the application:
    ```bash
