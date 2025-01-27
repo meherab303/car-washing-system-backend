@@ -4,12 +4,14 @@
 The Car Wash Booking System is a backend application designed to manage bookings for car wash services. It includes features for error handling, CRUD operations, authentication, and authorization, as well as transactional operations for data consistency. The system supports multiple user roles, such as admin and user, and provides functionality to create and manage bookings, services, and slots.
 
 ## Features
-- **Authentication & Authorization**: Secure login with hashed passwords and role-based access.
+- **Authentication & Authorization**: Secure login system using access and refresh tokens for both users and admins.
 - **CRUD Operations**: Create, read, update, and delete operations for Users, Services, BookingSlots, and Bookings.
-- **Error Handling**: Global error handling middleware for consistent error responses.
-- **Slot Management**: Automatic generation of service slots based on start time, end time, and service duration.
-- 
+- **BookingSlot Management**: Automatic generation of service slots based on start time, end time, and service duration.
+- **Service Management**:Admins can create, update, and delete car wash services.Users can view available services and book them.
+- **Booking Management**:Users can book, view, and cancel their car wash appointments.Admins can manage all bookings.
+- **Access Control**:APIs are protected with authentication, ensuring that only authorized users can access certain endpoints.Admins have enhanced permissions compared to regular users.
 - **Validation**: Request validation using Zod schemas.
+- **Error Handling**: Global error handling middleware for consistent error responses.
 - **No Data Found Middleware**: Handles scenarios where valid queries return no data.
 - **Not Found Middleware**: Handles unmatched routes.
 
@@ -41,7 +43,7 @@ The Car Wash Booking System is a backend application designed to manage bookings
    - Create a `.env` file in the root directory
 5. Start server:
    ```bash
-   npm run start:dev   ```
+   npm run start:dev   
 
 ## API Endpoints
 ### Authentication
