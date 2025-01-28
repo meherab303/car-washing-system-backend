@@ -65,38 +65,38 @@ The Car Wash Booking System is a backend application designed to manage bookings
 ### Users
 | Method | Endpoint                              | Description                                |
 |--------|---------------------------------------|--------------------------------------------|
-| POST   | /api/v1/users/sign-up                | Create users.                              |
-| GET    | /api/v1/users                        | Retrieve all users.                        |
-| GET    | /api/v1/users/:id                    | Retrieve a user by ID.                     |
-| PATCH  | /api/v1/users/:id                    | Update user details.                       |
-| DELETE | /api/v1/users/:id                    | Delete a user.                             |
+| POST   | /api/v1/users/sign-up                |   Create users.                              |
+| GET    | /api/v1/users                        |   Retrieve all users.                        |
+| GET    | /api/v1/users/:id                    |   Retrieve a user by ID.                     |
+| PATCH  | /api/v1/users/:id                    |   Update user details.                       |
+| DELETE | /api/v1/users/:id                    |   Delete a user.                             |
 
 ### Services
 | Method | Endpoint                              | Description                                |
 |--------|---------------------------------------|--------------------------------------------|
-| POST   | /api/v1/services/create-service      | Create a new service.                      |
-| GET    | /api/v1/services                     | Retrieve all services.                     |
-| GET    | /api/v1/services/:id                 | Retrieve a service by ID.                  |
-| PUT    | /api/v1/services/:id                 | Update a service.                          |
-| DELETE | /api/v1/services/:id                 | Mark a service as deleted.                 |
+| POST   | /api/v1/services/create-service      |   Create a new service.                      |
+| GET    | /api/v1/services                     |   Retrieve all services.                     |
+| GET    | /api/v1/services/:id                 |   Retrieve a service by ID.                  |
+| PUT    | /api/v1/services/:id                 |   Update a service.                          |
+| DELETE | /api/v1/services/:id                 |   Mark a service as deleted.                 |
 
 ### BookingSlots
 | Method | Endpoint                              | Description                                |
 |--------|---------------------------------------|--------------------------------------------|
-| POST   | /api/v1/bookingSlots/create-slot     | Generate slots for a service.              |
-| GET    | /api/v1/bookingSlots                 | Retrieve all slots.                        |
-| GET    | /api/v1/bookingSlots/:id             | Retrieve a slot by ID.                     |
-| PATCH  | /api/v1/bookingSlots/:id             | Update a slot.                             |
-| DELETE | /api/v1/bookingSlots/:id             | Delete a slot.                             |
+| POST   | /api/v1/bookingSlots/create-slot     |   Generate slots for a service.              |
+| GET    | /api/v1/bookingSlots                 |   Retrieve all slots.                        |
+| GET    | /api/v1/bookingSlots/:id             |   Retrieve a slot by ID.                     |
+| PATCH  | /api/v1/bookingSlots/:id             |   Update a slot.                             |
+| DELETE | /api/v1/bookingSlots/:id             |   Delete a slot.                             |
 
 ### Bookings
 | Method | Endpoint                              | Description                                |
 |--------|---------------------------------------|--------------------------------------------|
-| POST   | /api/v1/bookings/create-booking      | Create a new booking.                      |
-| GET    | /api/v1/bookings                     | Retrieve all bookings.                     |
-| GET    | /api/v1/bookings/my-bookings         | Retrieve a booking using token.            |
-| PATCH  | /api/v1/bookings/:id                 | Update a booking.                          |
-| DELETE | /api/v1/bookings/:id/cancelBooking   | Cancel a booking.                          |
+| POST   | /api/v1/bookings/create-booking      |   Create a new booking.                      |
+| GET    | /api/v1/bookings                     |   Retrieve all bookings.                     |
+| GET    | /api/v1/bookings/my-bookings         |   Retrieve a booking using token.            |
+| PATCH  | /api/v1/bookings/:id                 |   Update a booking.                          |
+| DELETE | /api/v1/bookings/:id/cancelBooking   |   Cancel a booking.                          |
 .
 
 ## Middleware
