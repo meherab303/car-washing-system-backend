@@ -84,10 +84,10 @@ The Car Wash Booking System is a backend application designed to manage bookings
 | Method | Endpoint                              | Description                                |
 |--------|---------------------------------------|--------------------------------------------|
 | POST   | /api/v1/bookingSlots/create-slot     | Generate slots for a service.              |
-| GET    | /api/v1/bookingSlots                | Retrieve all slots.                        |
-| GET    | /api/v1/bookingSlots/:id            | Retrieve a slot by ID.                     |
-| PATCH  | /api/v1/bookingSlots/:id            | Update a slot.                             |
-| DELETE | /api/v1/bookingSlots/:id            | Delete a slot.                             |
+| GET    | /api/v1/bookingSlots                 | Retrieve all slots.                        |
+| GET    | /api/v1/bookingSlots/:id             | Retrieve a slot by ID.                     |
+| PATCH  | /api/v1/bookingSlots/:id             | Update a slot.                             |
+| DELETE | /api/v1/bookingSlots/:id             | Delete a slot.                             |
 
 ### Bookings
 | Method | Endpoint                              | Description                                |
