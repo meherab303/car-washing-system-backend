@@ -28,7 +28,7 @@ const getAllBookingSlots = catchAsync(async (req, res) => {
   }
   return res.status(httpStatus.OK).json({
     success: true,
-    message: "All booking slots retrieved successfully",
+    message: "All service booking slots retrieved successfully",
     data: result,
   });
 });

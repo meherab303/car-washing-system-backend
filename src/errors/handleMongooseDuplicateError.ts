@@ -9,12 +9,19 @@ import { TGenericReturnError } from "../errorInterface/TgenericReturnError";
 const handleMongooseDuplicateError = (err: any): TGenericReturnError => {
   const statusCode = 400;
 
-  const errorReason = err?.message.match(/dup key: \{ name: "([^"]+)" \}/)?.[1];
-  const errorFieldName = err?.message.match(/index: (\w+)_\d+ dup key:/)?.[1];
+  const fieldMatch = err.message.match(/index: (\w+)_\d+ dup key/);
+  const field = fieldMatch ? fieldMatch[1] : "unknown_field";
+
+  // Extract the duplicate value from the error message
+  const valueMatch = err.message.match(/dup key: \{.*?: "([^"]+)" \}/);
+  const value = valueMatch ? valueMatch[1] : "unknown_value";
+
+  // const errorReason = err?.message.match(/dup key: \{ name: "([^"]+)" \}/)?.[1];
+  // const errorFieldName = err?.message.match(/index: (\w+)_\d+ dup key:/)?.[1];
   const errorSource: TErrorSources = [
     {
-      path: `${errorFieldName}`,
-      message: `${errorReason} is already exist`,
+      path: `${field}`,
+      message: `${value} is already exist`,
     },
   ];
   return {
