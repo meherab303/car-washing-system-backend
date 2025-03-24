@@ -13,12 +13,13 @@ routes.post(
   UserController.createUser,
 );
 routes.get("/", auth(User_Role.admin), UserController.getAllUsers);
+routes.get("/getMe", auth(User_Role.user,User_Role.admin), UserController.getMe);
+routes.get("/:id", auth(User_Role.admin,User_Role.user), UserController.getSingleUser);
 
-routes.get("/:id", auth(User_Role.admin), UserController.getSingleUser);
 routes.patch(
   "/:id",
   validateData(userSchemaValidations.updateUserValidationSchema),
-  auth(User_Role.admin),
+  auth(User_Role.admin,User_Role.user),
   UserController.updateSingleUser,
 );
 routes.delete("/:id", auth(User_Role.admin), UserController.deleteSingleUser);

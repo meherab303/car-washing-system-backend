@@ -1,3 +1,4 @@
+import { JwtPayload } from "jsonwebtoken";
 import AppError from "../../errors/appError";
 import { TUser } from "./user.interface";
 import { UserModel } from "./user.model";
@@ -15,6 +16,14 @@ const getSingleUserFromDB = async (id: string) => {
   const result = await UserModel.findById(id);
   if (!result) {
     throw new AppError(httpStatus.NOT_FOUND, "user is not found");
+  }
+  return result;
+};
+const getMeFromDB = async (payload :JwtPayload) => {
+  const result = await UserModel.findOne({email:payload?.userEmail}).lean();
+ 
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, "yourself not found");
   }
   return result;
 };
@@ -43,6 +52,7 @@ export const UserServices = {
   createUserIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
+  getMeFromDB,
   updateSingleUserIntoDB,
   deleteSingleUserFromDB,
 };

@@ -4,6 +4,7 @@ import { UserServices } from "./user.service";
 import { TUser } from "./user.interface";
 import { emptyDataCheck } from "../utils/emptyDataCheck";
 
+
 const createUser = catchAsync(async (req, res) => {
   const result = await UserServices.createUserIntoDB(req.body as TUser);
 
@@ -37,6 +38,16 @@ const getSingleUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMe = catchAsync(async (req, res) => {
+  const result = await UserServices.getMeFromDB(req.user);
+
+  return res.status(httpStatus.OK).json({
+    success: true,
+    message:`${result?.name} is retrieved successfull`,
+    data: result,
+  });
+});
+
 const updateSingleUser = catchAsync(async (req, res) => {
   const { id } = req.params;
   const modifiedData = req.body as Partial<TUser>;
@@ -61,6 +72,7 @@ export const UserController = {
   createUser,
   getAllUsers,
   getSingleUser,
+  getMe,
   updateSingleUser,
   deleteSingleUser,
 };
