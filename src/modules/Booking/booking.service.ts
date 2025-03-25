@@ -64,10 +64,28 @@ const getMyBookingsFromDB = async (userEmail: string) => {
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "user not found !");
   }
-  const result = await BookingModel.find({ email: userEmail }).populate(
-    "customer service slot",
-  );
-  return result;
+  const result = await BookingModel.find({ customer: user._id }).populate(
+    "slot",
+  ).populate("service").populate("customer");
+  const calculateCountdown = (date: string, startTime: string) => {
+    // Combine date and start time into a full date-time string
+    const serviceSlotDateTime = new Date(`${date}T${startTime}:00`); // Format: "YYYY-MM-DDTHH:mm:ss"
+    const currentTime = new Date();
+    const timeRemaining = Math.max(0, serviceSlotDateTime.getTime() - currentTime.getTime());
+  
+    return {
+      days: Math.floor(timeRemaining / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((timeRemaining % (1000 * 60)) / 1000),
+    };
+  };
+  return result.map((booking) => ({
+    ...booking.toObject(),
+    countdown:calculateCountdown(booking?.slot?.date , booking?.slot?.startTime)
+  }));
+ 
+ 
 };
 const updateBookingIntoDB = async (id: string, payload: Partial<TBooking>) => {
   const booking = await BookingModel.findById(id);

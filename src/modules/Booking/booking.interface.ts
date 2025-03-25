@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { TVehicle } from "./booking.constant";
 
+
 export type TBooking = {
   customer: Types.ObjectId;
   service: Types.ObjectId;
@@ -11,3 +12,8 @@ export type TBooking = {
   manufacturingYear: number;
   registrationPlate: string;
 };
+
+
+
+
+

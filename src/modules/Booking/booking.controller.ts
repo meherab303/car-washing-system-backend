@@ -29,6 +29,7 @@ const getAllBookings = catchAsync(async (req, res) => {
 
 const getMyBookings = catchAsync(async (req, res) => {
   const userEmail = req?.user?.userEmail as string;
+  console.log(userEmail)
 
   const result = await BookingService.getMyBookingsFromDB(userEmail);
   const emptyData = emptyDataCheck(result);
