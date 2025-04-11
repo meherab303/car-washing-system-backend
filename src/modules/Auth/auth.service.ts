@@ -144,7 +144,7 @@ const forgetPassword = async (userEmail: string) => {
     config?.JWT_ACCESS_EXPIRES_IN as string,
   );
 
-  const resetUiLink = `${config.jwt_Reset_ui_link}?email=${user.email}&token${resetToken}`;
+  const resetUiLink = `${config.jwt_Reset_ui_link}/reset-password?email=${user.email}&token=${resetToken}`;
 
   await sendEmail(user.email, resetUiLink);
 };
