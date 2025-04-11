@@ -9,7 +9,7 @@ const createUserIntoDB = async (payload: TUser) => {
   return newUser;
 };
 const getAllUsersFromDB = async () => {
-  const result = await UserModel.find();
+  const result = await UserModel.find({isDeleted:false,role:"user"});
   return result;
 };
 const getSingleUserFromDB = async (id: string) => {
